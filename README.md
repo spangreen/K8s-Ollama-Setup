@@ -28,7 +28,7 @@ ollama-secure-k8s/
 ### 1. Create Namespace
 
 ```bash
-kubectl apply -f manifests/00-namespace.yaml
+kubectl apply -f manifests/namespace.yaml
 ```
 
 ---
@@ -48,7 +48,7 @@ helm install --wait gpu-operator nvidia/gpu-operator \
 ### 3. Deploy Ollama (GPU-enabled)
 
 ```bash
-kubectl apply -f manifests/02-ollama-deployment.yaml
+kubectl apply -f manifests/ollama-deployment.yaml
 ```
 
 ---
@@ -56,9 +56,9 @@ kubectl apply -f manifests/02-ollama-deployment.yaml
 ### 4. Deploy API Key Auth Proxy (NGINX)
 
 ```bash
-kubectl apply -f manifests/03-nginx-proxy-configmap.yaml
-kubectl apply -f manifests/04-nginx-proxy-deployment.yaml
-kubectl apply -f manifests/05-nginx-proxy-service.yaml
+kubectl apply -f manifests/nginx-proxy-configmap.yaml
+kubectl apply -f manifests/nginx-proxy-deployment.yaml
+kubectl apply -f manifests/nginx-proxy-service.yaml
 ```
 
 ---
@@ -76,7 +76,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 ### 6. Create Ingress Resource
 
 ```bash
-kubectl apply -f manifests/07-ollama-ingress.yaml
+kubectl apply -f manifests/ollama-ingress.yaml
 ```
 
 ---
@@ -104,7 +104,7 @@ The proxy uses bearer token authentication. All clients must include:
 Authorization: Bearer abc123secret
 ```
 
-Valid API keys are defined in `03-nginx-proxy-configmap.yaml` under the `map` block of `nginx.conf`.
+Valid API keys are defined in `nginx-proxy-configmap.yaml` under the `map` block of `nginx.conf`.
 
 ---
 
