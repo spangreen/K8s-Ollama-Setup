@@ -4,4 +4,5 @@ metadata:
   name: vllm-config
   namespace: llm
 data:
-  VLLM_MODEL: Qwen/Qwen2.5-Coder-32B
+  VLLM_MODEL: Qwen/Qwen2.5-Coder-7B
+  VLLM_ARGS: "-max-model-len 4096 --gpu-memory-utilization 0.8 --tensor_parallel_size 2 --output_stride 2 --dtype bfloat16"
