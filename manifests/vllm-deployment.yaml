@@ -26,7 +26,7 @@ spec:
           image: vllm/vllm-openai:latest
           command: ["bin/sh", "-c"]
           args:
-            - "vllm server $(VLLM_MODEL) $(VLLM_ARGS)"
+            - "vllm serve $(VLLM_MODEL) $(VLLM_ARGS)"
           env:
             - name: VLLM_MODEL
               valueFrom:
@@ -42,12 +42,12 @@ spec:
             - containerPort: 8000
           resources:
             limits:
-              cpu: "16"
-              memory: "64"
+              cpu: "4"
+              memory: "32"
               nvidia.com/gpu: 1
             requests:
               cpu: "2"
-              memory: "32"
+              memory: "16"
               nvidia.com/gpu: 1
            volumeMounts:
              - mountPath: /root/.cache/huggingface
