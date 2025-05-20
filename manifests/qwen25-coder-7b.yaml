@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qwen25-coder-7b
+  labels:
+    app: qwen25-coder-7b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qwen25-coder-7b
+  template:
+    metadata:
+      labels:
+        app: qwen25-coder-7b
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: vllm
+        image: vllm/vllm-openai:latest
+        command: ["/bin/sh", "-c"]
+        args:
+          - >
+            python3 -m vllm.entrypoints.openai.api_server
+            --model Qwen/Qwen2.5-Coder-7B
+            --tensor-parallel-size 2
+            --max-model-len 32768
+            --gpu-memory-utilization 0.9
+            --trust-remote-code
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            nvidia.com/gpu: 2  # Request both GPUs
+        volumeMounts:
+        - mountPath: /root/.cache/huggingface
+          name: hf-cache
+        - mountPath: /dev/shm
+          name: dshm
+      volumes:
+      - name: hf-cache
+        persistentVolumeClaim:
+          claimName: cache-volume
+      - name: dshm
+        emptyDir:
+          medium: Memory
+          sizeLimit: "2Gi"
