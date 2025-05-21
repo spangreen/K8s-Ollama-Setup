@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: qwen25-coder-7b
+  namespace: llm
   labels:
     app: qwen25-coder-7b
 spec:
