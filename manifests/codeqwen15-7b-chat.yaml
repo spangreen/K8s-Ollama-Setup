@@ -22,14 +22,13 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
           - >
-            vllm serve Qwen/Qwen2.5-Coder-7B-Instruct-AWQ
-            --quantization=awq
+            vllm serve Dracones/CodeQwen1.5-7B-Chat_exl2_8.0bpw
+            --quantization=exllama2
             --tensor-parallel-size=2
-            --gpu-memory-utilization=0.85
             --max-model-len=8192
-            --trust-remote-code
             --dtype=auto
-            --disable-log-requests
+            --gpu-memory-utilization=0.85
+            --trust-remote-code
         env:
         - name: HUGGING_FACE_HUB_TOKEN
           valueFrom:

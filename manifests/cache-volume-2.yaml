@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: cache-volume
+  name: cache-volume-2
 spec:
   capacity:
-    storage: 50Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /data/k8s/volumes
+    path: /data/k8s/volumes/vol2

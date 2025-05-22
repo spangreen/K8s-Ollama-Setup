@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwen25-coder-7b
+  name: codegemma-7b
   namespace: llm
   labels:
-    app: qwen25-coder-7b
+    app: codegemma-7b
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: qwen25-coder-7b
+      app: codegemma-7b
   template:
     metadata:
       labels:
-        app: qwen25-coder-7b
+        app: codegemma-7b
     spec:
       restartPolicy: Always
       containers:
@@ -22,14 +22,12 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
           - >
-            vllm serve Qwen/Qwen2.5-Coder-7B-Instruct-AWQ
-            --quantization=awq
-            --tensor-parallel-size=2
-            --gpu-memory-utilization=0.85
-            --max-model-len=8192
+            vllm serve google/codegemma-7b
+            --tensor-parallel-size 2
+            --max-model-len 8192
+            --dtype auto
+            --gpu-memory-utilization 0.85
             --trust-remote-code
-            --dtype=auto
-            --disable-log-requests
         env:
         - name: HUGGING_FACE_HUB_TOKEN
           valueFrom:
@@ -49,7 +47,7 @@ spec:
       volumes:
       - name: hf-cache
         persistentVolumeClaim:
-          claimName: cache-pvc-1
+          claimName: cache-pvc-2
       - name: dshm
         emptyDir:
           medium: Memory
