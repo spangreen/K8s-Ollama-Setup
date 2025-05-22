@@ -36,6 +36,11 @@ spec:
             secretKeyRef:
               name: huggingface-secret
               key: token
+        - name: VLLM_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: vllm-secret
+	      key: token
         ports:
 	- containerPort: 8000
         resources:
