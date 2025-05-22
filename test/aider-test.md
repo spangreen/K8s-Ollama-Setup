@@ -1,3 +1,0 @@
-# Aider Test
-
-Instructions TBD

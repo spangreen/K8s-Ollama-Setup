@@ -1,4 +1,52 @@
 {
-  "info": {"name": "Ollama Test"},
-  "item": []
+  "info": {
+    "name": "vLLM OpenAI Chat Completion Test",
+    "_postman_id": "a2c58c76-7a3e-4e63-83be-5a5f6c2a62f2",
+    "description": "Test an OpenAI-compatible LLM endpoint (e.g. vLLM) with a default name.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Chat Completion Test",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{API_KEY}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model\": \"default\",\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"Hello, what is 2 + 2?\" }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/v1/chat/completions",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "v1",
+            "chat",
+            "completions"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "https://your-host:port"
+    },
+    {
+      "key": "API_KEY",
+      "value": "your-api-key"
+    }
+  ]
 }
