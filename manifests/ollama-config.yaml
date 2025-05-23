@@ -4,4 +4,7 @@ metadata:
   name: ollama-env
   namespace: llm
 data:
-  OLLAMA_MODELS: codellama:7b
+#  swap out to test different models.  The named model will be preloaded
+# in an initContainer
+  OLLAMA_MODEL: codellama:7b
+#  OLLAMA_MODEL: deepseek-coder:6.7b
