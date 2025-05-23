@@ -15,8 +15,11 @@ spec:
     spec:
       volumes:
         - name: model-cache
-          persistentVolumeClaim:
-            claimName: ollama-model-pvc
+          hostPath:
+            path: /mnt/data/ollama-data
+            type: DirectoryOrCreate
+#          persistentVolumeClaim:
+#            claimName: ollama-model-pvc
       initContainers:
         - name: pull-model
           image: ollama/ollama:latest
