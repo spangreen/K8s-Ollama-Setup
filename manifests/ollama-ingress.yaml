@@ -14,6 +14,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: ollama-proxy
+                name: ollama-service
                 port:
-                  number: 80
+                  number: 11434

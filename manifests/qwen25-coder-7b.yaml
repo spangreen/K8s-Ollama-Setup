@@ -40,7 +40,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: vllm-secret
-	      key: token
+		      key: token
         ports:
 	- containerPort: 8000
         resources:

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ollama-env
+  namespace: llm
+data:
+  OLLAMA_MODELS: codellama:7b
