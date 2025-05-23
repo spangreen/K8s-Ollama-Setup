@@ -18,32 +18,24 @@ spec:
           hostPath:
             path: /mnt/data/ollama-data
             type: DirectoryOrCreate
-#          persistentVolumeClaim:
-#            claimName: ollama-model-pvc
-      initContainers:
-        - name: pull-model
-          image: ollama/ollama:latest
-          command: ["/bin/sh", "-c"] 
-          args:
-            - "ollama pull $MODEL_NAME"
-          env:
-            - name: MODEL_NAME
-              valueFrom:
-                configMap:
-                  name: ollama-env
-                  key: MODEL_NAME
-          volumeMounts:
-            - name: model-cache
-              mountPath: /root/.ollama
       containers:
         - name: ollama
           image: ollama/ollama:latest
-          command: ["/bin/sh, "-c"]
+          command: ["/bin/sh", "-c"]
           args:
-            - "ollama serve"
+            - |
+              ollama serve &
+              sleep 5
+              ollama pull ${OLLAMA_MODELS}
+              wait
           ports:
             - containerPort: 11434
           env:
+            - name: OLLAMA_MODELS
+              valueFrom:
+                configMapKeyRef:
+                  name: ollama-env
+                  key: ollama_models
             - name: OLLAMA_HOST
               value: "0.0.0.0"
           volumeMounts:

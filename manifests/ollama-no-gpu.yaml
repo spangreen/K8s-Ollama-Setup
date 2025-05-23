@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ollama
+  namespace: llm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ollama
+  template:
+    metadata:
+      labels:
+        app: ollama
+    spec:
+      volumes:
+        - name: model-cache
+          hostPath:
+            path: /mnt/data/ollama-data
+            type: DirectoryOrCreate
+#          persistentVolumeClaim:
+#            claimName: ollama-model-pvc
+      containers:
+        - name: ollama
+          image: ollama/ollama:latest
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              ollama serve &
+              sleep 5
+              ollama pull ${OLLAMA_MODELS}
+              wait
+          ports:
+            - containerPort: 11434
+          env:
+            - name: OLLAMA_MODELS
+              valueFrom:
+                configMapKeyRef:
+                  name: ollama-env
+                  key: ollama_models
+            - name: OLLAMA_HOST
+              value: "0.0.0.0"
+          volumeMounts:
+            - name: model-cache
+              mountPath: /root/.ollama
+#          resources:
+#            limits:
+#              nvidia.com/gpu: 1
+          readinessProbe:
+            httpGet:
+              path: /api/tags
+              port: 11434
+            initialDelaySeconds: 20
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /api/tags
+              port: 11434
+            initialDelaySeconds: 30
+            periodSeconds: 10
+#      nodeSelector:
+#        nvidia.com/gpu.present: "true"
+#      tolerations:
+#        - key: "nvidia.com/gpu"
+#          operator: "Exists"
+#          effect: "NoSchedule"
