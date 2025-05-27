@@ -4,11 +4,9 @@ metadata:
   name: ollama-service
   namespace: llm
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
-   app: ollama
+    app: ollama
   ports:
-   - name: http
-     port: 11434
-     targetPort: 11434
-     nodePort: 31134
+    - port: 80
+      targetPort: 11434

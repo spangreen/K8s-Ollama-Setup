@@ -4,11 +4,10 @@ metadata:
   name: ollama-ingress
   namespace: llm
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: ollama.local
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
@@ -16,4 +15,4 @@ spec:
               service:
                 name: ollama-service
                 port:
-                  number: 11434
+                  number: 80
