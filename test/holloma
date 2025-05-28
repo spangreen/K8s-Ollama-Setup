@@ -1,0 +1,2 @@
+#/bin/sh
+docker run --rm -d -p 80:4173 --name hollama ghcr.io/fmaclen/hollama:latest

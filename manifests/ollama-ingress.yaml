@@ -2,12 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ollama-ingress
-  namespace: llm
+  namespace: ollama
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - http:
+    - host: ollama.llm-host
+      http:
         paths:
           - path: /
             pathType: Prefix

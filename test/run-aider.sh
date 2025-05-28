@@ -1,8 +1,8 @@
 #/bin/sh
 
 # aider will use the openapi endpoint and pass "default" for the model
-HOST=localhost
-PORT=8000
+HOST=ollama.llm-host
+PORT=80
 API_KEY=abcde
 
 URL="http://${HOST}:${PORT}/v1"

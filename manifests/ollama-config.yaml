@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ollama-env
-  namespace: llm
+  namespace: ollama
 data:
 #  swap out to test different models.  The named model will be preloaded
 # in an initContainer
