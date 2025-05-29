@@ -6,6 +6,7 @@ metadata:
 data:
 #  swap out to test different models.  The named model will be preloaded
 # in an initContainer
-#  ollama_models: "codellama:7b"
-#  ollama_models: "deepseek-coder:6.7b"
-  ollama_models: "tinyllama"
+#  ollama_model: "codellama:7b"
+#  ollama_model: "deepseek-coder:6.7b"
+#  ollama_model: "tinyllama"
+  ollama_model: "qwen2.5:0.5b"

@@ -28,16 +28,16 @@ spec:
             - |
               ollama serve &
               sleep 5
-              ollama pull ${OLLAMA_MODELS}
+              ollama pull ${OLLAMA_MODEL}
               wait
           ports:
             - containerPort: 11434
           env:
-            - name: OLLAMA_MODELS
+            - name: OLLAMA_MODEL
               valueFrom:
                 configMapKeyRef:
                   name: ollama-env
-                  key: ollama_models
+                  key: ollama_model
             - name: OLLAMA_HOST
               value: "0.0.0.0"
           volumeMounts:
