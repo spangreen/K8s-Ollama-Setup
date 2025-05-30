@@ -4,11 +4,11 @@
 
 This repository contains a collection of **experimental Kubernetes configurations** for deploying **local large language models (LLMs)** available on [Ollama](https://ollama.com/). The primary use case is to support **proof-of-concept coding assistants** by exposing an OpenAI-compatible LLM endpoint within a Kubernetes environment.
 
-> ?? **Note:** Most of the included configurations are experimental and untested. Only one specific setup has been validated and is described below.
+> **Note:** Most of the included configurations are experimental and untested. Only one specific setup has been validated and is described below.
 
 ---
 
-## ? Tested Configuration: Minimal Ollama Deployment (No GPU)
+## Tested Configuration: Minimal Ollama Deployment (No GPU)
 
 The following resources have been tested and verified to deploy a basic very small Ollama-based LLM in Kubernetes on an 8GB VM with no GPUs:
 
@@ -35,7 +35,7 @@ This configuration:
 
 ---
 
-## ?? Experimental and Untested Resources
+## Experimental and Untested Resources
 
 The repository also contains additional YAML manifests for:
 
