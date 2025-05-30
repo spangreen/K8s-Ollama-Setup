@@ -4,9 +4,6 @@ metadata:
   name: ollama-env
   namespace: ollama
 data:
-#  swap out to test different models.  The named model will be preloaded
-# in an initContainer
-#  ollama_model: "codellama:7b"
-#  ollama_model: "deepseek-coder:6.7b"
+#  swap out to test different models.  The named model will be preloaded by ollama as part of the K8s Deployment startup
 #  ollama_model: "tinyllama"
   ollama_model: "qwen2.5:0.5b"
