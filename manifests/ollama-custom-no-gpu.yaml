@@ -14,31 +14,31 @@ spec:
         app: ollama
     spec:
       volumes:
+        - name: modelfile-volume
+          configMap:
+            name: qwen-custom
         - name: model-cache
           hostPath:
             path: /mnt/data/ollama-data
             type: DirectoryOrCreate
+#          persistentVolumeClaim:
+#            claimName: ollama-model-pvc
       containers:
         - name: ollama
           image: ollama/ollama:latest
           command: ["/bin/sh", "-c"]
           args:
             - |
-              ollama serve &
-              sleep 5
-              ollama pull ${OLLAMA_MODEL}
-              wait
+              ollama create qwen7b-quant -f ./modelfile/Modelfile && \
+              ollama serve
           ports:
             - containerPort: 11434
           env:
-            - name: OLLAMA_MODEL
-              valueFrom:
-                configMapKeyRef:
-                  name: ollama-env
-                  key: ollama_model
             - name: OLLAMA_HOST
               value: "0.0.0.0"
           volumeMounts:
+            - name: modelfile-volume
+              mountPath: /modelfile
             - name: model-cache
               mountPath: /root/.ollama
 #          resources:
@@ -50,12 +50,16 @@ spec:
               port: 11434
             initialDelaySeconds: 20
             periodSeconds: 5
+            timeoutSeconds: 3
+            failureThresholds: 3
           livenessProbe:
             httpGet:
               path: /api/tags
               port: 11434
             initialDelaySeconds: 30
             periodSeconds: 10
+            timeoutSeconds: 5
+            failureThresholds: 3
 #      nodeSelector:
 #        nvidia.com/gpu.present: "true"
 #      tolerations:

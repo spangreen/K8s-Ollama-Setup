@@ -1,2 +1,13 @@
 #/bin/sh
+# hollama sets up a chat-like interface to connect to an LLM
+ 
+# After starting with docker, use your browser to go to http://localhost
+# Configure your connection in settings.  Base URL should be something lie:
+#  http://<llm-host>/v1
+# Of course, you can change the port below from 80 to something else if you
+# like
+#
+#  API key can be "default". It isn't used by the ollama LLM server
+#  Clear the model names filter in the UI.
+ 
 docker run --rm -d -p 80:4173 --name hollama ghcr.io/fmaclen/hollama:latest

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: qwen-custom
+data:
+  Modelfile: |
+    FROM qwen:7b-q4_K_M
+    TEMPLATE: chatml
+    SYSTEM: "You are a helpful coding assistant."
+    PARAMETER: temperature 0.2
